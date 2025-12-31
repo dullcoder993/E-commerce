@@ -1,0 +1,38 @@
+{
+  "name": "e-commerce-backend",
+  "version": "1.0.0",
+  "description": "E-commerce project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dullcoder993/E-commerce.git"
+  },
+  "keywords": [
+    "backend"
+  ],
+  "author": "Prathmesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dullcoder993/E-commerce/issues"
+  },
+  "homepage": "https://github.com/dullcoder993/E-commerce#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^2.8.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "git": "^0.1.5",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.1.1",
+    "mongoose-aggregate-paginate-v2": "^1.1.4",
+    "multer": "^2.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
