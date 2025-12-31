@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "E-commerce project",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "node index.js"
+    "dev": "node src/index.js"
   },
   "repository": {
     "type": "git",
