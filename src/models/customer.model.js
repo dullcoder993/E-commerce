@@ -14,7 +14,7 @@ const customerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    delivery_address: {
+    address: {
         type: String,
         required: true
     },
