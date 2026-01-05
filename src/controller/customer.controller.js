@@ -19,8 +19,6 @@ const generateToken = async (customerId) => {
 
     customer.refreshToken = refreshToken;
 
-
-    console.log("he")
     await customer.save({ validateBeforeSave: false });
     
     return { accessToken, refreshToken };
