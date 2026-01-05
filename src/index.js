@@ -1,7 +1,7 @@
 import dotenv from "dotenv"
 import mongoose from "mongoose"
 import { db_name } from "./constant.js"
-import app from "./app.js"
+import {app} from "./app.js"
 
 dotenv.config()
 

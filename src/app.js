@@ -14,4 +14,8 @@ app.use(express.urlencoded({extended: true, limit:'16kb'}))
 app.use(express.static("public"))
 app.use(cookieParser())
 
-export default app
+import customerRouter from "./routes/customer.routes.js"
+
+app.use('/api/v1/customer',customerRouter)
+
+export { app }
