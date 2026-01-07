@@ -41,12 +41,6 @@ const generateToken = async (customerId) => {
      c.if user exist: check password 
      d.if user not exist: throw error
      e.return res
-  3. Update details
-     a.Checking user ie login or not.
-     b.If yes can able to change details
-     c.If not throw error
-     d.Taking deatils from customer.
-     e.return res
 */
 const register = asyncHandler(async(req,res)=>{
   const { name, email, password, mobile, address, username} = req.body
@@ -110,4 +104,50 @@ const login = asyncHandler(async(req,res)=>{
   
 })
 
-export  {register,login}
+const updateDetails = asyncHandler(async(req,res)=>{
+  const {email,username,mobile,address,name} = req.body
+  if(!email && !username && !mobile && !address && !name){
+    throw new ApiError(400,"Required feild is empty.")
+  }
+  const customer = await Customer.findByIdAndUpdate(
+        req.customer?.id,
+        {
+            $set:{
+                email,
+                username,
+                mobile,
+                address,
+                name
+            }
+        },
+        {new: true}
+    )
+  if(!customer){
+    throw new ApiError(400,"Customer Account does not exist.")
+  }
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,customer,"Data updated successfully.")
+  )
+})
+
+const updatePassword = asyncHandler(async(req,res)=>{
+  const {password,confirmPassword} = req.body
+  if(!password || !confirmPassword){
+    throw new ApiError(400,"Password is required.")
+  }
+  
+  const customer = await Customer.findById(req.customer?.id)
+  if(!customer){
+    throw new ApiError(400,"Customer does not exist.")
+  }
+})  
+
+const getCurrentUser = asyncHandler(async(req,res)=>{
+  return res
+  .status(200)
+  .json(200,req.customer,"Customer deatils is fetched.")
+})
+
+export  {register,login,updateDetails,updatePassword,getCurrentUser}
