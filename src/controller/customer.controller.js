@@ -132,16 +132,26 @@ const updateDetails = asyncHandler(async(req,res)=>{
   )
 })
 
-const updatePassword = asyncHandler(async(req,res)=>{
+const changePassword = asyncHandler(async(req,res)=>{
   const {password,confirmPassword} = req.body
   if(!password || !confirmPassword){
-    throw new ApiError(400,"Password is required.")
+    throw new ApiError(400,"Required field is empty.")
+  }
+  if(password !== confirmPassword){
+    throw new ApiError(400,"Password should same as confirm password.")
   }
   
-  const customer = await Customer.findById(req.customer?.id)
+  const customer = await Customer.findById(req.customer?.id).select("+password")
   if(!customer){
     throw new ApiError(400,"Customer does not exist.")
   }
+  customer.password = confirmPassword;
+  await customer.save({validateBeforeSave: false})
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,customer,"Password changed successfully.")
+  )
 })  
 
 const getCurrentUser = asyncHandler(async(req,res)=>{
@@ -150,4 +160,27 @@ const getCurrentUser = asyncHandler(async(req,res)=>{
   .json(200,req.customer,"Customer deatils is fetched.")
 })
 
-export  {register,login,updateDetails,updatePassword,getCurrentUser}
+const logoutUser = asyncHandler(async (req, res) => {
+  
+    await Customer.findByIdAndUpdate(
+        req.customer.id,
+        {
+            $unset: {
+                refreshToken: 1
+            }
+        }
+    );
+
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+    return res
+    .status(200)
+    .clearCookie("accessToken", options)
+    .clearCookie("refreshToken", options)
+    .json(new ApiResponse(200,{},"User logout."))
+});
+
+
+export  {register,login,updateDetails,changePassword,getCurrentUser,logoutUser}
