@@ -24,6 +24,11 @@ const customerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    role: {
+        type: String,
+        enum: ["customer","retailer"],
+        default: "customer"
+    },
     mobile: {
         type: Number,
         required: true
@@ -52,7 +57,8 @@ customerSchema.methods.generateAccessToken = function(){
     return jwt.sign({
         id: this.id,
         email: this.email,
-        mobile: this.mobile
+        mobile: this.mobile,
+        role: this.role
     },
     process.env.ACCESS_TOKEN_SECRET,
     {

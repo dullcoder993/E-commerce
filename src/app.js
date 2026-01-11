@@ -15,7 +15,10 @@ app.use(express.static("public"))
 app.use(cookieParser())
 
 import customerRouter from "./routes/customer.routes.js"
+import retailerRouter from "./routes/retailer.routes.js"
 
 app.use('/api/v1/customer',customerRouter)
+app.use('/api/v1/retailer',retailerRouter)
+
 
 export { app }
