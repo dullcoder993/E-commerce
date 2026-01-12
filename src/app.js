@@ -16,9 +16,11 @@ app.use(cookieParser())
 
 import customerRouter from "./routes/customer.routes.js"
 import retailerRouter from "./routes/retailer.routes.js"
+import productRouter from "./routes/product.routes.js"
 
 app.use('/api/v1/customer',customerRouter)
 app.use('/api/v1/retailer',retailerRouter)
+app.use('/api/v1/product',productRouter)
 
 
 export { app }

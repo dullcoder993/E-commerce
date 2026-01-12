@@ -25,4 +25,12 @@ const becomeRetailer = asyncHandler(async (req, res) => {
     );
 });
 
-export {becomeRetailer}
+const getRetailer = asyncHandler(async(req,res)=>{
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200,req.customer,"Retailer details fetched successfully.")
+    )
+})
+
+export {becomeRetailer,getRetailer}

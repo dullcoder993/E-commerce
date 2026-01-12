@@ -14,7 +14,8 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     video: {
-        type: String
+        type: String,
+        required: true
     },
     price: {
         type: Number,
@@ -26,8 +27,7 @@ const productSchema = new mongoose.Schema({
     },
     categoryId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "category",
-        required: true
+        ref: "category"
     },
     retailerId: {
         type: mongoose.Schema.Types.ObjectId,
