@@ -51,4 +51,127 @@ const create = asyncHandler(async(req,res)=>{
     )
 })
 
-export {create}
+const updateDetails = asyncHandler(async(req,res)=>{
+    const {name,discription,price,stockQty} = req.body
+    const productId = req.params.id
+    if(!name||!discription||price === undefined||stockQty === undefined){
+        throw new ApiError(400,"Required field is empty.")
+    }
+    if(!productId){
+        throw new ApiError(400,"Product Id required.")
+    }
+    const product = await Product.findById(productId)
+    if(!product){
+        throw new ApiError(400,"Product does not exist.")
+    }
+    if(product.retailerId.id !== req.customer.id){
+        throw new ApiError(400,"Cannot update the details.")
+    }
+    if(name !== undefined){
+        product.name = name
+    }
+    if(discription !== undefined){
+        product.discription = discription
+    }
+    if(price !== undefined){
+        product.price = price
+    }
+    if(stockQty !== undefined){
+        product.stockQty = stockQty
+    }
+    await product.save()
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200,product,"Products updated Successfully.")
+    )
+})
+
+const addImage = asyncHandler(async(req,res)=>{
+    const productId = req.params.id
+    if(!productId){
+        throw new ApiError(400,"Product Id required.")
+    }
+    let imageLocalPath = req.files?.image[0]?.path
+    console.log(imageLocalPath)
+    if(!imageLocalPath){
+        throw new ApiError(400,"Image is required.")
+    }
+    const product = await Product.findById(productId)
+    if(!product){
+        throw new ApiError(400,"Product does not exist.")
+    }
+    
+    if(product.retailerId != req.customer.id){
+        throw new ApiError(400,"Cannot add product image.")
+    }
+    imageLocalPath = path.resolve(imageLocalPath)
+    const fixedImagePath = imageLocalPath.replace(/\\/g,"/")
+    const imageFile = await uploadOnCloudinary(fixedImagePath)
+    if(!imageFile){
+        throw new ApiError(400,"Image file is required")
+    }
+    
+    product.image.push(imageFile.url)
+    await product.save()
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200,product,"Image added succesfully.")
+    )
+
+})
+
+const removeImage = asyncHandler(async(req,res)=>{
+    const imageUrl = req.body
+    const productId = req.params.id
+    if(!productId){
+        throw new ApiError(400,"Product Id required.")
+    }
+    if(!imageUrl){
+        throw new ApiError(400,"ImageUrl required.")
+    }
+    const product = await Product.findById(productId)
+    if(!product){
+        throw new ApiError(400,"Product does not exist.")
+    }
+    if(product.retailerId != req.customer.id){
+        throw new ApiError(400,"Cannot remove image.")
+    }
+
+    if(!product.image.includes(imageUrl)){
+        throw new ApiError(400,"Image does not exist.")
+    }
+    product.image = product.image.filter(img => img !== imageUrl)
+
+    await product.save()
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200,product,"Image remove Successfully.")
+    )
+})
+
+const deleteProduct = asyncHandler(async(req,res)=>{
+    const productId = req.params.id
+    if(!productId){
+        throw new ApiError(400,"Product Id required.")
+    }
+    const product = await Product.findById(productId)
+    if(!product){
+        throw new ApiError(400,"Product does not exist.")
+    }
+    if(product.owner != req.customer.id){
+        throw new ApiError(400,"Cannot delete product.")
+    }
+    product.deleteOne()
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200,"Product is deleted.")
+    )
+    
+})
+
+export {create,updateDetails,deleteProduct,addImage,removeImage}
