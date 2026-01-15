@@ -140,10 +140,10 @@ const removeImage = asyncHandler(async(req,res)=>{
         throw new ApiError(400,"Cannot remove image.")
     }
 
-    if(!product.image.includes(imageUrl)){
+    if(!product.image.includes(imageUrl.imageUrl)){
         throw new ApiError(400,"Image does not exist.")
     }
-    product.image = product.image.filter(img => img !== imageUrl)
+    product.image = product.image.filter(img => img !== imageUrl.imageUrl)
 
     await product.save()
     return res
@@ -162,10 +162,11 @@ const deleteProduct = asyncHandler(async(req,res)=>{
     if(!product){
         throw new ApiError(400,"Product does not exist.")
     }
-    if(product.owner != req.customer.id){
+   
+    if(product.retailerId != req.customer.id){
         throw new ApiError(400,"Cannot delete product.")
     }
-    product.deleteOne()
+    await product.deleteOne()
     return res
     .status(200)
     .json(
@@ -174,4 +175,14 @@ const deleteProduct = asyncHandler(async(req,res)=>{
     
 })
 
-export {create,updateDetails,deleteProduct,addImage,removeImage}
+const getAllProduct = asyncHandler(async(req,res)=>{
+    const product = await Product.find()
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200,product,"All product fetched Successfully.")
+    )
+})
+
+export {create,updateDetails,deleteProduct,addImage,removeImage,getAllProduct}

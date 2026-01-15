@@ -25,6 +25,22 @@ const becomeRetailer = asyncHandler(async (req, res) => {
     );
 });
 
+const getRetailerById = asyncHandler(async(req,res)=>{
+    const {retailerId} = req.params.id
+    if(!retailerId){
+        throw new ApiError(400,"Retailer Id required.")
+    }
+    const retailer = await Customer.findById(retailerId)
+    if(!retailer){
+        throw new ApiError(400,"Retailer does not exist.")
+    }
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200,retailer,"Retailer data fetched Successfully.")
+    )
+})
+
 const getRetailer = asyncHandler(async(req,res)=>{
     return res
     .status(200)
@@ -33,4 +49,4 @@ const getRetailer = asyncHandler(async(req,res)=>{
     )
 })
 
-export {becomeRetailer,getRetailer}
+export {becomeRetailer,getRetailer,getRetailerById}
