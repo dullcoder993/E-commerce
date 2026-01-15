@@ -4,7 +4,7 @@ import { Customer } from "../models/customer.model.js";
 
 export const requireRole = asyncHandler(async(req,res,next)=>{
     try{
-        if(req.customer.role !== "retailer"){
+        if(req.customer.role !== "retailer" && req.customer.role !== "admin"){
             throw new ApiError(400,"Should be retailer.")
         }
         next()

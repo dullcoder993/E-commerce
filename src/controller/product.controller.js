@@ -2,17 +2,27 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/AsyncHandler.js";
 import { Product } from "../models/product.model.js";
+import { category } from "../models/category.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import path from "path"
 
 const create = asyncHandler(async(req,res)=>{
-    const {name,discription,price,stockQty,} = req.body
-    if(!name||!discription||!price||!stockQty){
+    const {name,discription,price,stockQty,categoryId} = req.body
+    if(!name||!discription||price == undefined||stockQty == undefined || !categoryId){
         throw new ApiError(400,"Required field is empty.")
     }
+    
     let imageLocalPath = req.files?.image[0]?.path
     if(!imageLocalPath){
         throw new ApiError(400,"Image is required.")
+    }
+    let videoLocalPath = req.files?.video[0]?.path
+    if(!videoLocalPath){
+        throw new ApiError(400,"Video file required.")
+    }
+    const Category = await category.findById(categoryId)
+    if(!Category){
+        throw new ApiError(400,"Category does not exist.")
     }
     imageLocalPath = path.resolve(imageLocalPath)
     const fixedImagePath = imageLocalPath.replace(/\\/g,"/")
@@ -21,10 +31,7 @@ const create = asyncHandler(async(req,res)=>{
         throw new ApiError(400,"Image file is required")
     }
 
-    let videoLocalPath = req.files?.video[0]?.path
-    if(!videoLocalPath){
-        throw new ApiError(400,"Video file required.")
-    }
+    
     videoLocalPath = path.resolve(videoLocalPath)
     const fixedVideoPath = videoLocalPath.replace(/\\/g,"/")
     const videoFile = await uploadOnCloudinary(fixedVideoPath)
@@ -39,7 +46,8 @@ const create = asyncHandler(async(req,res)=>{
         stockQty,
         image: imageFile.url,
         video: videoFile.url,
-        retailerId: req.customer.id
+        retailerId: req.customer.id,
+        categoryId
     })
     if(!product){
         throw new ApiError(400,"Something Went wrong while creating product.")
@@ -64,7 +72,7 @@ const updateDetails = asyncHandler(async(req,res)=>{
     if(!product){
         throw new ApiError(400,"Product does not exist.")
     }
-    if(product.retailerId.id !== req.customer.id){
+    if(product.retailerId != req.customer.id){
         throw new ApiError(400,"Cannot update the details.")
     }
     if(name !== undefined){
@@ -170,13 +178,26 @@ const deleteProduct = asyncHandler(async(req,res)=>{
     return res
     .status(200)
     .json(
-        new ApiResponse(200,"Product is deleted.")
+        new ApiResponse(200,product,"Product is deleted.")
     )
     
 })
 
+const getProductByCategory = asyncHandler(async(req,res)=>{
+    const categoryId = req.params.id
+    if(!categoryId){
+        throw new ApiError(400,"Category Id required.")
+    }
+    const product = await Product.find({categoryId}).populate("categoryId","name")
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200,product,"Data fetched Successfully.")
+    )
+})
+
 const getAllProduct = asyncHandler(async(req,res)=>{
-    const product = await Product.find()
+    const product = await Product.find().populate("categoryId","name")
 
     return res
     .status(200)
@@ -185,4 +206,4 @@ const getAllProduct = asyncHandler(async(req,res)=>{
     )
 })
 
-export {create,updateDetails,deleteProduct,addImage,removeImage,getAllProduct}
+export {create,updateDetails,deleteProduct,addImage,removeImage,getAllProduct,getProductByCategory}

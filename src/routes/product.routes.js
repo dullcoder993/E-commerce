@@ -1,7 +1,7 @@
 import { Router } from "express";
 import verifyJWT from "../middlewares/auth.middleware.js";
 import { requireRole } from "../middlewares/role.middleware.js";
-import { addImage, create, deleteProduct, getAllProduct, removeImage, updateDetails } from "../controller/product.controller.js";
+import { addImage, create, deleteProduct, getAllProduct, getProductByCategory, removeImage, updateDetails } from "../controller/product.controller.js";
 import {upload} from "../middlewares/multer.middleware.js"
 
 const router = Router()
@@ -22,5 +22,5 @@ router.route("/c/addImage/:id").post(
 router.route("/c/update/:id").patch(updateDetails)
 router.route("/c/delete/:id").delete(deleteProduct)
 router.route("/getAllProduct").get(getAllProduct)
-
+router.route("/c/getProducByCategory/:id").get(getProductByCategory)
 export default router
