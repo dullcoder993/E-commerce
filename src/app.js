@@ -19,12 +19,13 @@ import retailerRouter from "./routes/retailer.routes.js"
 import productRouter from "./routes/product.routes.js"
 import categoryRouter from "./routes/category.routes.js"
 import cartRouter from "./routes/cart.routes.js"
+import cartItemRouter from "./routes/cart_items.routes.js"
 
 app.use('/api/v1/customer',customerRouter)
 app.use('/api/v1/retailer',retailerRouter)
 app.use('/api/v1/product',productRouter)
 app.use('/api/v1/category',categoryRouter)
 app.use('/api/v1/cart',cartRouter)
-
+app.use('/api/v1/CartItems',cartItemRouter)
 
 export { app }

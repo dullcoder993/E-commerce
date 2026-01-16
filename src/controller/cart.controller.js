@@ -64,14 +64,16 @@ const updateCart = asyncHandler(async(req,res)=>{
 
 const getAllCart = asyncHandler(async(req,res)=>{
     const CustomerId = req.customer.id
-    const Cart = await cart.find({CustomerId})
+
+    const Cart = await cart.find({customerId:CustomerId})
+
     if(!Cart){
         throw new ApiError(400,"User Don't have Carts")
     }
     return res
     .status(200)
     .json(
-        new ApiResponse(200,"Data fetched Successfully.")
+        new ApiResponse(200,Cart,"Data fetched Successfully.")
     )
 })
 export {add,deleteCart,updateCart,getAllCart}
