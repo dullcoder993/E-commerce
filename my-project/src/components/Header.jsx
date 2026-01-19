@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
-    <nav className="w-full bg-gray-900 text-white shadow-md">
+    <nav className="w-full text-white shadow-md bg-gray-900/90 backdrop-blur">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         
         {/* Logo */}

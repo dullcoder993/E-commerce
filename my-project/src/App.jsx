@@ -9,6 +9,7 @@ import Product from "./pages/Product"
 import ProductDetails from "./pages/ProductDetails"
 import Profile from "./pages/Profile"
 import { ToastContainer, toast } from 'react-toastify';
+import Change from './pages/Change-Password'
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/cart-items' element={<Orders/>}/>
+        <Route path='/Change' element={<Change/>}/>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
     </>

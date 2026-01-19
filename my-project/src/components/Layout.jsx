@@ -6,7 +6,7 @@ const Layout = (props) => {
   return (
     <div>
       <Header/>
-      <main style={{minHeight:"80vh"}}>{props.children}</main>
+      <main className="min-h-[80vh] bg-gradient-to-br from-[#2f3b4a] via-[#3f4f63] to-[#2b3440]">{props.children}</main>
       <ToastContainer />
       <Footer/>
     </div>

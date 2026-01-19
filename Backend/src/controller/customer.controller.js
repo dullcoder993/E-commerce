@@ -74,15 +74,17 @@ const register = asyncHandler(async(req,res)=>{
 })
 
 const login = asyncHandler(async(req,res)=>{
-  const { email, mobile, password} = req.body
-  if(!email || !mobile && !password){
+  const { emailId, password} = req.body
+  if(!emailId || !password){
     throw new ApiError(400,"Required field is empty.")
   }
+  console.log(emailId)
   const customer = await Customer.findOne({
-    $or:[{email},{mobile}]
+    email:emailId
   }).select("+password")
+  console.log(customer)
   if(!customer){
-    throw new ApiError(400,"User does not exist.")
+    throw new ApiError(400,"User does not exist...")
   }
   const passwordValid = await customer.isPasswordCorrect(password)
 
@@ -92,7 +94,7 @@ const login = asyncHandler(async(req,res)=>{
   const {accessToken,refreshToken} = await generateToken(customer.id) 
   const options = {
     httpOnly: true,
-    secure: true
+    secure: true,
   }
   return res
   .status(200)
