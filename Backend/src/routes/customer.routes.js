@@ -10,7 +10,7 @@ router.route("/login").post(login)
 
 router.route("/update-details").patch(verifyJWT,updateDetails)
 
-router.route("/chnage-password").patch(verifyJWT,changePassword)
+router.route("/change-password").patch(verifyJWT,changePassword)
 
 router.route("/logout").post(verifyJWT,logoutUser)
 

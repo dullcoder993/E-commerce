@@ -82,7 +82,6 @@ const login = asyncHandler(async(req,res)=>{
   const customer = await Customer.findOne({
     email:emailId
   }).select("+password")
-  console.log(customer)
   if(!customer){
     throw new ApiError(400,"User does not exist...")
   }
