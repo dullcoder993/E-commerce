@@ -93,7 +93,8 @@ const login = asyncHandler(async(req,res)=>{
   const {accessToken,refreshToken} = await generateToken(customer.id) 
   const options = {
     httpOnly: true,
-    secure: true,
+    secure: false,
+    sameSite: "lax"
   }
   return res
   .status(200)
@@ -158,6 +159,7 @@ const changePassword = asyncHandler(async(req,res)=>{
 const getCurrentUser = asyncHandler(async(req,res)=>{
   return res
   .status(200)
+  .set("Cache-Control", "no-store")
   .json(200,req.customer,"Customer deatils is fetched.")
 })
 
@@ -174,7 +176,8 @@ const logoutUser = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: true
+        secure: false,
+        sameSite: "lax"
     }
     return res
     .status(200)

@@ -1,10 +1,12 @@
 import {Router} from "express";
-import {register,login, updateDetails, changePassword, logoutUser} from "../controller/customer.controller.js"
+import {register,login, updateDetails, changePassword, logoutUser, getCurrentUser} from "../controller/customer.controller.js"
 import verifyJWT from "../middlewares/auth.middleware.js";
 
 const router = Router()
 
 router.route("/register").post(register)
+
+router.route("/me").get(verifyJWT,getCurrentUser)
 
 router.route("/login").post(login)
 

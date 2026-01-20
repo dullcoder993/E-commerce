@@ -5,8 +5,12 @@ import { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext.jsx";
 
 const Login = () => {
+  
+const { isAuth,setIsAuth } = useContext(AuthContext);
   const navigate = useNavigate();
     const [emailId,setEmailId] = useState("")
     const [password,setPassword] = useState("")
@@ -16,9 +20,9 @@ const Login = () => {
       const res = await axios.post(`http://localhost:8000/api/v1/customer/login`,{emailId,password},
         { withCredentials: true }
       );
-      console.log(res)
       if(res.data.success){
-            navigate("/product");
+          setIsAuth(true);
+            navigate("/");
             toast.success(res.data.message)
           }else{
             toast.error(res.data.message)

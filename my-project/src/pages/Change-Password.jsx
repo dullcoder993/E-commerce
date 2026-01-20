@@ -18,7 +18,7 @@ const Change = () => {
       );
       console.log(res)
       if(res.data.success){
-            navigate("/product");
+            navigate("/login");
             toast.success(res.data.message)
           }else{
             toast.error(res.data.message)
@@ -42,7 +42,7 @@ const Change = () => {
           className="bg-white p-6 rounded-lg shadow-md w-full max-w-md"
         >
           <h2 className="text-2xl font-semibold text-center mb-6">
-            Login
+            Change Password
           </h2>
 
           <div className="space-y-4">
