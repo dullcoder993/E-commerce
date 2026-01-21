@@ -160,7 +160,7 @@ const getCurrentUser = asyncHandler(async(req,res)=>{
   return res
   .status(200)
   .set("Cache-Control", "no-store")
-  .json(200,req.customer,"Customer deatils is fetched.")
+  .json(new ApiResponse(200,req.customer,"Customer deatils is fetched."))
 })
 
 const logoutUser = asyncHandler(async (req, res) => {
