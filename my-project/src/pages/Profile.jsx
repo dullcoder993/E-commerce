@@ -38,28 +38,53 @@ const Profile = () => {
     <Layout>
     <div className="p-6">
       <br/>
-      <h1 className="text-4xl font-semibold text-amber-100 text-center"> Profile</h1>
+      <h1 className="text-4xl font-semibold text-orange-400 text-center"> Profile</h1>
     <br/>
-      <div className=" space-y-2 text-orange-700 ">
-        <div>
-          <h1 className="text-3xl font-bold text-white mb-2"> Id : {user._id}</h1>
-          <br/>
-          <h1 className="text-3xl font-bold text-white mb-2">Name : {user.name}</h1>
-          <br/>
-          <h1 className="text-3xl font-bold text-white mb-2">E-mail : {user.email}</h1>
-          <br/>
-          <h1 className="text-3xl font-bold text-white mb-2">Mobile : {user.mobile}</h1>
-          <br/>
-          <h1 className="text-3xl font-bold text-white mb-2">Role : {user.role}</h1>
-          <br/>
-          <h1 className="text-3xl font-bold text-white mb-2">Address : {user.address}</h1>
-          <br/>
-          <h1 className="text-3xl font-bold text-white mb-2">Username : {user.username}</h1>
-          <br/>
-      
-      
-    </div>
+      <div className="min-h-screen bg-slate-800 flex justify-center pt-20">
+  <div className="w-full max-w-lg bg-slate-900/70 rounded-xl p-8 text-white">
+
+    
+
+    <div className="space-y-4 text-lg">
+      <div>
+        <span className="text-slate-400">ID</span>
+        <p className="font-medium break-all">{user._id}</p>
       </div>
+
+      <div>
+        <span className="text-slate-400">Name</span>
+        <p className="font-medium">{user.name}</p>
+      </div>
+
+      <div>
+        <span className="text-slate-400">Email</span>
+        <p className="font-medium">{user.email}</p>
+      </div>
+
+      <div>
+        <span className="text-slate-400">Mobile</span>
+        <p className="font-medium">{user.mobile}</p>
+      </div>
+
+      <div>
+        <span className="text-slate-400">Role</span>
+        <p className="font-medium">{user.role}</p>
+      </div>
+
+      <div>
+        <span className="text-slate-400">Username</span>
+        <p className="font-medium">{user.username}</p>
+      </div>
+
+      <div>
+        <h3 className="text-slate-400"> Address</h3>
+        <p className="font-medium">  {user.address}</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
     </div>
     </Layout>
   );
