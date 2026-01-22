@@ -205,5 +205,22 @@ const getAllProduct = asyncHandler(async(req,res)=>{
         new ApiResponse(200,product,"All product fetched Successfully.")
     )
 })
+const getProductById = asyncHandler(async(req,res)=>{
+    const productId = req.params.id
+    console.log(productId)
+    if(!productId){
+        throw new ApiError(400,"Product Id required.")
+    }
+    const product = await Product.findById(productId).populate("categoryId","name")
+    if(!product){
+        throw new ApiError(400,"Product Does not exist.")
+    }
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200,product,"Product Data fetched successfully.")
+    )
 
-export {create,updateDetails,deleteProduct,addImage,removeImage,getAllProduct,getProductByCategory}
+})
+
+export {create,updateDetails,deleteProduct,addImage,removeImage,getAllProduct,getProductByCategory,getProductById}
