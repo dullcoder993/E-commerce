@@ -8,7 +8,11 @@ const cartSchema = new mongoose.Schema({
     customerId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "customer",
-    }
+    },
+    isActive: {
+        type: Boolean,
+        default: false,
+    },
 },{timestamps: true})
 
 export const cart = mongoose.model("cart",cartSchema)

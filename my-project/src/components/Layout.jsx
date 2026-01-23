@@ -1,16 +1,21 @@
-import React from 'react'
-import Header from './Header'
-import Footer from './Footer'
-import { ToastContainer } from 'react-toastify';
-const Layout = (props) => {
-  return (
-    <div>
-      <Header/>
-      <main className="min-h-[80vh] bg-gradient-to-br from-[#2f3b4a] via-[#3f4f63] to-[#2b3440]">{props.children}</main>
-      <ToastContainer />
-      <Footer/>
-    </div>
-  )
-}
+import Header from "./Header";
+import Footer from "./Footer";
+import { ToastContainer } from "react-toastify";
 
-export default Layout
+const Layout = ({ children }) => {
+  return (
+    <div className="min-h-screen flex flex-col bg-slate-800">
+      <Header />
+
+      {/* 🔥 THIS FIXES PADDING ISSUES */}
+      <main className="flex-1 w-full">
+        {children}
+      </main>
+
+      <ToastContainer />
+      <Footer />
+    </div>
+  );
+};
+
+export default Layout;

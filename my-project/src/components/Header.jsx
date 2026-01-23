@@ -32,38 +32,6 @@ const Header = () => {
         <Link to="/" className="text-3xl font-bold justify-between">
           ShopX
         </Link>
-
-        {/* Center Links */}
-        <div className="flex items-center gap-8 text-xl font-medium">
-
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `pb-1 ${
-                isActive
-                  ? "border-b-2 border-orange-500 text-orange-500"
-                  : "hover:text-orange-400"
-              }`
-            }
-          >
-            Products
-          </NavLink>
-
-          <NavLink
-            to="/cart-items"
-            className={({ isActive }) =>
-              `pb-1 ${
-                isActive
-                  ? "border-b-2 border-orange-500 text-orange-500"
-                  : "hover:text-orange-400"
-              }`
-            }
-          >
-            Orders
-          </NavLink>
-        </div>
-
-
         {/* Right Section */}
         {/* Right Section */}
         <div className="flex items-center gap-4">

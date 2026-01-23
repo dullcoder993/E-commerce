@@ -39,7 +39,7 @@ const addItems = asyncHandler(async(req,res)=>{
 })
 
 const deleteItems = asyncHandler(async(req,res)=>{
-    const {cartItemId} = req.params.id
+    const cartItemId = req.params.id
     if(!cartItemId){
         throw new ApiError(400,"Cart Item Id required.")
     }
@@ -113,12 +113,17 @@ const addQuantity = asyncHandler(async(req,res)=>{
     )
 })
 const getItems = asyncHandler(async(req,res)=>{
-    const Cart = await cart.findOne({ customerId: req.customer.id })
+    const cartId = req.query.cartId;
+
+    if (!cartId) {
+    throw new ApiError(400, "cartId is required");
+    }
+    const Cart = await cart.findbyId(cartId)
     if (!Cart) {
         throw new ApiError(404, "Cart not found.")
     }
 
-    const items = await cart_item.find({ cartId: cart.id })
+    const items = await cart_item.find({ cart: cart.id })
         .populate("product", "name price image")
 
     return res.status(200).json(

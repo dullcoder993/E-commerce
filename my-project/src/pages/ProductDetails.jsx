@@ -28,14 +28,15 @@ const ProductDetails = () => {
 
   const addToCart = async () => {
     try {
-      await axios.post(
-        "http://localhost:8000/api/v1/cart",
+      const res = await axios.post(
+        `http://localhost:8000/api/v1/cartItems/c/add/${id}`,
         { productId: product._id, quantity: 1 },
         { withCredentials: true }
       );
-      toast.success("Added to cart");
+      console.log(res)
+      toast.success(res.data);
     } catch {
-      toast.error("Failed to add to cart");
+      toast.error("failed to add");
     }
   };
 

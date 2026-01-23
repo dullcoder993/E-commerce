@@ -39,8 +39,7 @@ const Profile = () => {
     <div className="p-6">
       <br/>
       <h1 className="text-4xl font-semibold text-orange-400 text-center"> Profile</h1>
-    <br/>
-      <div className="min-h-screen bg-slate-800 flex justify-center pt-20">
+      <div className="min-h-screen bg-slate-800 flex justify-center pt-10">
   <div className="w-full max-w-lg bg-slate-900/70 rounded-xl p-8 text-white">
 
     

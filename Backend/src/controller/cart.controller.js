@@ -9,9 +9,14 @@ const add = asyncHandler(async(req,res)=>{
     if(!name){
         throw new ApiError(400,"Name is required.")
     }
+    const cartCount = await cart.countDocuments({customerId})
+    if (cartCount >= 5) {
+    throw new ApiError(400, "You can only have up to 5 carts")
+    }
     const Cart = await cart.create({
         name,
-        customerId
+        customerId,
+        isActive: cartCount === 0
     })
     if(!Cart){
         throw new ApiError(400,"Something went wrong.")
@@ -28,7 +33,9 @@ const deleteCart = asyncHandler(async(req,res)=>{
     if(!cartId){
         throw new ApiError(400,"Cart Id required.")
     }
+    console.log(cartId)
     const Cart = await cart.findById(cartId)
+    console.log(Cart)
     if(!Cart){
         throw new ApiError(400,"Cart does not exist.")
     }
@@ -36,6 +43,14 @@ const deleteCart = asyncHandler(async(req,res)=>{
         throw new ApiError(400,"Cannot delete Cart")
     }
     await Cart.deleteOne()
+    const id = Cart.customerId
+    const nextCart = await cart.findOne({ customerId: req.customer.id });
+    console.log(nextCart)
+    if (nextCart) {
+        nextCart.isActive = true;
+        await nextCart.save();
+    }
+    console.log(nextCart)
     return res
     .status(200)
     .json(
@@ -51,7 +66,7 @@ const updateCart = asyncHandler(async(req,res)=>{
     }
     const Cart = await cart.findById(CartId)
     if(!Cart){
-        throw new ApiResponse(400,"Cart does not exist.")
+        throw new ApiError(400,"Cart does not exist.")
     }
     Cart.name = name;
     Cart.save()
@@ -67,8 +82,12 @@ const getAllCart = asyncHandler(async(req,res)=>{
 
     const Cart = await cart.find({customerId:CustomerId})
 
-    if(!Cart){
-        throw new ApiError(400,"User Don't have Carts")
+    if(Cart.length === 0){
+        return res
+        .status(200)
+        .json(
+            new ApiResponse(200,[], "User do not have carts")
+        )
     }
     return res
     .status(200)
