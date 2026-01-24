@@ -5,12 +5,7 @@ import { cart_item } from "../models/cart_item.model.js";
 import {cart} from "../models/cart.model.js"
 
 const addItems = asyncHandler(async(req,res)=>{
-    const { productId, quantity = 1 } = req.body
     const CartId = req.params.id
-    if (!productId) {
-        throw new ApiError(400, "ProductId is required.")
-    }
-
     const Cart = await cart.findById(CartId)
     if (!Cart) {
         throw new ApiError(404, "Cart not found.")
@@ -18,8 +13,7 @@ const addItems = asyncHandler(async(req,res)=>{
     
     let cartItem = await cart_item.findOne({
         cart: Cart.id,
-        product: productId
-    })
+    }).populate("product", "name price image")
 
     if(cartItem){
         cartItem.quantity += 1
@@ -34,7 +28,7 @@ const addItems = asyncHandler(async(req,res)=>{
     return res
     .status(200)
     .json(
-        new ApiResponse(200,cartItem,"Cart is created.")
+        new ApiResponse(200,cartItem,"Cart item added.")
     )
 })
 
@@ -60,17 +54,16 @@ const deleteItems = asyncHandler(async(req,res)=>{
 })
 
 const removeItems = asyncHandler(async(req,res)=>{
-    const cartItemId = req.params.id
-    if(!cartItemId){
-        throw new ApiError(400,"Cart Item Id required.")
+    const cartId = req.params.id
+    if(!cartId){
+        throw new ApiError(400,"Cart Id required.")
     }
-    const cartItem = await cart_item.findById(cartItemId)
+    const Cart = await cart.findById(cartId)
+    let cartItem = await cart_item.findOne({
+        cart: Cart.id,
+    }).populate("product", "name price image")
     if(!cartItem){
         throw new ApiError(400,"Cart Item does not exist.")
-    }
-    const Cart = await cart.findById(cartItem.cart)
-    if(Cart.customerId != req.customer.id){
-        throw new ApiError(400,"Cannot remove items.")
     }
     if(cartItem.quantity>1){
         cartItem.quantity -= 1
@@ -113,19 +106,20 @@ const addQuantity = asyncHandler(async(req,res)=>{
     )
 })
 const getItems = asyncHandler(async(req,res)=>{
-    const cartId = req.query.cartId;
+    const cartId = req.params.id;
+    console.log(cartId)
 
     if (!cartId) {
     throw new ApiError(400, "cartId is required");
     }
-    const Cart = await cart.findbyId(cartId)
+    const Cart = await cart.findById(cartId)
     if (!Cart) {
         throw new ApiError(404, "Cart not found.")
     }
 
-    const items = await cart_item.find({ cart: cart.id })
+    const items = await cart_item.find({ cart: cartId })
         .populate("product", "name price image")
-
+    console.log(items)
     return res.status(200).json(
         new ApiResponse(200, items, "Cart items fetched.")
     )

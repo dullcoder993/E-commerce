@@ -140,7 +140,7 @@ const Carts = () => {
             {carts.map(cart => (
               <div
   key={cart._id}
-  onClick={() => navigate(`/cart-items/${cart._id}`)}
+  onClick={() => navigate(`/cartItems/${cart._id}`)}
   className="bg-slate-900 p-5 rounded-lg cursor-pointer hover:ring-2 hover:ring-orange-500 transition flex items-center justify-between"
 >
   {/* LEFT SIDE (text) */}

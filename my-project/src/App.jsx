@@ -25,7 +25,7 @@ function App() {
         <Route path='/productDetails/:id' element={<ProtectedRoute><ProductDetails/></ProtectedRoute>}/>
         <Route path='/cart' element={<ProtectedRoute><Cart/></ProtectedRoute>}/>
         <Route path='/profile' element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
-        <Route path='/cart-items/:id' element={<ProtectedRoute><Orders/></ProtectedRoute>}/>
+        <Route path='/cartItems/:id' element={<ProtectedRoute><Orders/></ProtectedRoute>}/>
         <Route path='/Change' element={<AuthRoute><Change/></AuthRoute>}/>
         <Route path='*' element={<NotFound/>}/>
       </Routes>

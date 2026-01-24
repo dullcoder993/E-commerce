@@ -33,9 +33,7 @@ const deleteCart = asyncHandler(async(req,res)=>{
     if(!cartId){
         throw new ApiError(400,"Cart Id required.")
     }
-    console.log(cartId)
     const Cart = await cart.findById(cartId)
-    console.log(Cart)
     if(!Cart){
         throw new ApiError(400,"Cart does not exist.")
     }
@@ -45,12 +43,10 @@ const deleteCart = asyncHandler(async(req,res)=>{
     await Cart.deleteOne()
     const id = Cart.customerId
     const nextCart = await cart.findOne({ customerId: req.customer.id });
-    console.log(nextCart)
     if (nextCart) {
         nextCart.isActive = true;
         await nextCart.save();
     }
-    console.log(nextCart)
     return res
     .status(200)
     .json(
