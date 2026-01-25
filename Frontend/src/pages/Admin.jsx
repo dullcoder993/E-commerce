@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Layout from "../components/Layout";
+import Layout from "../components/Layout.jsx";
 import AdminProducts from "../components/Admin/AdminProducts.jsx";
 import AdminUsers from "../components/Admin/AdminUsers.jsx";
 
