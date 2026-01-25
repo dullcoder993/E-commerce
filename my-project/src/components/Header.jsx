@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { NavLink, Link} from "react-router-dom";
 
 const Header = () => {
-  const { isAuth, setIsAuth, loading } = useContext(AuthContext);
+  const { isAuth, setIsAuth, loading,user} = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -21,10 +21,12 @@ const Header = () => {
       console.log(err);
     }
   };
+  
 
   if (loading) return null;
 
   return (
+    
     <nav className="w-full text-white shadow-md bg-gray-900/90 backdrop-blur">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         
@@ -33,7 +35,20 @@ const Header = () => {
           ShopX
         </Link>
         {/* Right Section */}
+        {user?.role === "admin" && (
+          <NavLink
+            to="/admin"
+            className={({ isActive }) =>
+              isActive
+                ? "text-orange-500 font-semibold"
+                : "hover:text-orange-400"
+            }
+          >
+            Admin
+          </NavLink>
+        )}
         {/* Right Section */}
+        
         <div className="flex items-center gap-4">
           <NavLink
             to="/cart"
@@ -93,7 +108,7 @@ const Header = () => {
 
               <button
                 onClick={handleLogout}
-                className="text-red-400 hover:text-red-500 pb-1"
+                className="text-red-400 hover:text-red-500 pb-1 cursor-pointer"
               >
                 Logout
               </button>

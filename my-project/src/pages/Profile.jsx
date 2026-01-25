@@ -15,7 +15,6 @@ const Profile = () => {
           "http://localhost:8000/api/v1/customer/me",
           { withCredentials: true }
         );
-        console.log(res.data)
         setUser(res.data.data);
       } catch (err) {
         console.log(err);

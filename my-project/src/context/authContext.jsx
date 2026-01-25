@@ -1,31 +1,48 @@
-// src/context/AuthContext.jsx
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuth, setIsAuth] = useState(null); // null = loading
+  const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // Check auth on app load / refresh
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/v1/customer/me", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        if (res.data.success===200) {
+    const checkAuth = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/api/v1/customer/me",
+          { withCredentials: true }
+        );
+
+        if (res.data.success) {
           setIsAuth(true);
-        }
-        if(200 < res.data.success >400){
+          setUser(res.data.data);
+        } else {
           setIsAuth(false);
+          setUser(null);
         }
-      })
-      .catch(() => {
+      } catch (err) {
         setIsAuth(false);
-      })
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkAuth();
   }, []);
   return (
-    <AuthContext.Provider value={{ isAuth, setIsAuth }}>
+    <AuthContext.Provider
+      value={{
+        isAuth,
+        setIsAuth,
+        user,
+        setUser,
+        loading,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

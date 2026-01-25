@@ -10,7 +10,7 @@ import { AuthContext } from "../context/authContext.jsx";
 
 const Login = () => {
   
-const { isAuth,setIsAuth } = useContext(AuthContext);
+const { setUser,isAuth,setIsAuth } = useContext(AuthContext);
   const navigate = useNavigate();
     const [emailId,setEmailId] = useState("")
     const [password,setPassword] = useState("")
@@ -22,6 +22,7 @@ const { isAuth,setIsAuth } = useContext(AuthContext);
       );
       if(res.data.success){
           setIsAuth(true);
+          setUser(res.data.data)
             navigate("/");
             toast.success(res.data.message)
           }else{

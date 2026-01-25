@@ -7,10 +7,12 @@ import Orders from "./pages/Orders"
 import Product from "./pages/Product"
 import ProductDetails from "./pages/ProductDetails"
 import Profile from "./pages/Profile"
+import Admin from './pages/Admin.jsx'
 import { ToastContainer, toast } from 'react-toastify';
 import Change from './pages/Change-Password'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import AuthRoute from './components/AuthRoute.jsx'
+import AdminRoute from './components/Admin/AdminRoute.jsx'
 
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
         <Route path='/profile' element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
         <Route path='/cartItems/:id' element={<ProtectedRoute><Orders/></ProtectedRoute>}/>
         <Route path='/Change' element={<AuthRoute><Change/></AuthRoute>}/>
+        <Route path="/admin" element={<AdminRoute><Admin/></AdminRoute>}/>
+
         <Route path='*' element={<NotFound/>}/>
       </Routes>
     </>

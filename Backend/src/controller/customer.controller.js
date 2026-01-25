@@ -186,5 +186,30 @@ const logoutUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200,{},"User logout."))
 });
 
+const getAllUser = asyncHandler(async(req,res)=>{
+  const User = await Customer.find({})
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,User,"All User fetched.")
+  )
+})
 
-export  {register,login,updateDetails,changePassword,getCurrentUser,logoutUser}
+const deleteUser = asyncHandler(async(req,res)=>{
+  const userId = req.params.id
+  if(!userId){
+    throw new ApiError(400,"User ID required.")
+  }
+  const user = await Customer.findByIdAndDelete(userId)
+  if(!user){
+    throw new ApiError(400,"User Cannot delete.")
+  }
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200,user,"User Deleted Successfully.")
+  )
+})
+
+
+export  {register,login,updateDetails,changePassword,getCurrentUser,logoutUser,getAllUser,deleteUser}

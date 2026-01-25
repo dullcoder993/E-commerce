@@ -16,10 +16,6 @@ const create = asyncHandler(async(req,res)=>{
     if(!imageLocalPath){
         throw new ApiError(400,"Image is required.")
     }
-    let videoLocalPath = req.files?.video[0]?.path
-    if(!videoLocalPath){
-        throw new ApiError(400,"Video file required.")
-    }
     const Category = await category.findById(categoryId)
     if(!Category){
         throw new ApiError(400,"Category does not exist.")
@@ -31,13 +27,6 @@ const create = asyncHandler(async(req,res)=>{
         throw new ApiError(400,"Image file is required")
     }
 
-    
-    videoLocalPath = path.resolve(videoLocalPath)
-    const fixedVideoPath = videoLocalPath.replace(/\\/g,"/")
-    const videoFile = await uploadOnCloudinary(fixedVideoPath)
-    if(!videoFile){
-        throw new ApiError(400,"Video file required, retry.")
-    }
     console.log(req.customer.id)
     const product = await Product.create({
         name,
@@ -45,7 +34,6 @@ const create = asyncHandler(async(req,res)=>{
         price,
         stockQty,
         image: imageFile.url,
-        video: videoFile.url,
         retailerId: req.customer.id,
         categoryId
     })
@@ -169,10 +157,6 @@ const deleteProduct = asyncHandler(async(req,res)=>{
     const product = await Product.findById(productId)
     if(!product){
         throw new ApiError(400,"Product does not exist.")
-    }
-   
-    if(product.retailerId != req.customer.id){
-        throw new ApiError(400,"Cannot delete product.")
     }
     await product.deleteOne()
     return res

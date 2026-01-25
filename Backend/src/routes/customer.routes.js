@@ -1,6 +1,7 @@
 import {Router} from "express";
-import {register,login, updateDetails, changePassword, logoutUser, getCurrentUser} from "../controller/customer.controller.js"
+import {register,login, updateDetails, changePassword, logoutUser, getCurrentUser, getAllUser, deleteUser} from "../controller/customer.controller.js"
 import verifyJWT from "../middlewares/auth.middleware.js";
+import { adminRole } from "../middlewares/admin.middleware.js";
 
 const router = Router()
 
@@ -15,5 +16,9 @@ router.route("/update-details").patch(verifyJWT,updateDetails)
 router.route("/change-password").patch(verifyJWT,changePassword)
 
 router.route("/logout").post(verifyJWT,logoutUser)
+
+router.route("/getAllUser").get(verifyJWT,adminRole,getAllUser)
+
+router.route("/c/delete/:id").delete(verifyJWT,adminRole,deleteUser)
 
 export default router

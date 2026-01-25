@@ -30,8 +30,10 @@ const customerSchema = new mongoose.Schema({
         default: "Customer"
     },
     mobile: {
-        type: Number,
-        required: true
+        type: String,
+        required: true,
+        unique: true,
+        match: [/^\d{10,15}$/,"Please fill valid number."]
     },
     username: {
         type: String,

@@ -6,6 +6,7 @@ import {cart} from "../models/cart.model.js"
 
 const addItems = asyncHandler(async(req,res)=>{
     const CartId = req.params.id
+    const { productId, quantity = 1 } = req.body
     const Cart = await cart.findById(CartId)
     if (!Cart) {
         throw new ApiError(404, "Cart not found.")
