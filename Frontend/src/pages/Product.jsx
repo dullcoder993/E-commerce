@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [error,setError] = useState("")
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
