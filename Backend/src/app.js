@@ -44,11 +44,14 @@ app.use(errorHandler)
 
 
 // serve frontend
-app.use(express.static(path.join(__dirname, "dist")));
+app.use(express.static(path.join(__dirname, "..", "dist")));
 
-// SPA fallback
-app.get(/^\/(?!api|assets).*/, (req, res) => {
-  res.sendFile(path.join(__dirname,"..", "dist", "index.html"));
+// SPA fallback (SAFE, EXPLICIT)
+app.get("*", (req, res, next) => {
+  if (req.path.startsWith("/api")) return next();
+  if (req.path.startsWith("/assets")) return next();
+
+  res.sendFile(path.join(__dirname, "..", "dist", "index.html"));
 });
 
 export { app }
