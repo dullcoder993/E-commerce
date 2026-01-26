@@ -12,7 +12,7 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const res = await axios.get(
-          "https://e-commerce-2-vgum.onrender.com/api/v1/customer/me",
+          "/api/v1/customer/me",
           { withCredentials: true }
         );
         setUser(res.data.data);

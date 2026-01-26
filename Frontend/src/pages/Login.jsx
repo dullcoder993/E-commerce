@@ -17,7 +17,7 @@ const { setUser,isAuth,setIsAuth } = useContext(AuthContext);
    const handleSubmit =async (e) => {
     e.preventDefault();
     try{
-      const res = await axios.post(`https://e-commerce-2-vgum.onrender.com/api/v1/customer/login`,{emailId,password},
+      const res = await axios.post(`/api/v1/customer/login`,{emailId,password},
         { withCredentials: true }
       );
       if(res.data.success){

@@ -16,7 +16,7 @@ const ProductDetails = () => {
     const fetchDeatils = async ()=>  {
       try {
         const res = await axios.get
-          (`https://e-commerce-2-vgum.onrender.com/api/v1/product/c/getProduct/${id}`,
+          (`/api/v1/product/c/getProduct/${id}`,
             { withCredentials: true }
           );
           setProduct(res.data.data)
@@ -32,7 +32,7 @@ const ProductDetails = () => {
   const addToCart = async () => {
     try {
       const res = await axios.post(
-        `https://e-commerce-2-vgum.onrender.com/api/v1/cartItems/c/add/${id}`,
+        `/api/v1/cartItems/c/add/${id}`,
         { productId: product._id, quantity: 1 },
         { withCredentials: true }
       );
@@ -46,7 +46,7 @@ const ProductDetails = () => {
     try {
       setLoadingCarts(true);
       const res = await axios.get(
-        "https://e-commerce-2-vgum.onrender.com/api/v1/cart/getAllCart",
+        "/api/v1/cart/getAllCart",
         { withCredentials: true }
       );
       setCarts(res.data.data);
@@ -61,7 +61,7 @@ const ProductDetails = () => {
   const addToSelectedCart = async (cart) => {
   try {
     await axios.post(
-      `https://e-commerce-2-vgum.onrender.com/api/v1/cartItems/c/add/${cart._id}`,
+      `/api/v1/cartItems/c/add/${cart._id}`,
       { productId: product._id },
       { withCredentials: true }
     );

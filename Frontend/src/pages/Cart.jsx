@@ -15,7 +15,7 @@ const Carts = () => {
     const fetchCarts = async () => {
       try {
         const res = await axios.get(
-          "https://e-commerce-2-vgum.onrender.com/api/v1/cart/getAllCart",
+          "/api/v1/cart/getAllCart",
           { withCredentials: true }
         );
         setCarts(res.data.data);
@@ -43,7 +43,7 @@ const Carts = () => {
     setCreating(true);
 
     const res = await axios.post(
-      "https://e-commerce-2-vgum.onrender.com/api/v1/cart/add",
+      "/api/v1/cart/add",
       { name: newCartName },
       { withCredentials: true }
     );
@@ -60,7 +60,7 @@ const Carts = () => {
   const setActiveCart = async (cartId) => {
   try {
     await axios.patch(
-      `https://e-commerce-2-vgum.onrender.com/api/v1/carts/${cartId}/active`,
+      `/api/v1/carts/${cartId}/active`,
       {},
       { withCredentials: true }
     );
@@ -81,7 +81,7 @@ const Carts = () => {
   const deleteCart = async (cartId) => {
     try {
       await axios.delete(
-        `https://e-commerce-2-vgum.onrender.com/api/v1/cart/c/remove/${cartId}`,
+        `/api/v1/cart/c/remove/${cartId}`,
         { withCredentials: true }
       );
 

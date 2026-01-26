@@ -11,7 +11,7 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "https://e-commerce-2-vgum.onrender.com/api/v1/customer/logout",
+        "/api/v1/customer/logout",
         {},
         { withCredentials: true }
       );

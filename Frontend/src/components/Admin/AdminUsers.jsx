@@ -13,7 +13,7 @@ const AdminUsers = () => {
   const fetchUsers = async () => {
     try {
       const res = await axios.get(
-        "https://e-commerce-2-vgum.onrender.com/api/v1/customer/getAllUser",
+        "/api/v1/customer/getAllUser",
         { withCredentials: true }
       );
       setUsers(res.data.data);
@@ -29,7 +29,7 @@ const AdminUsers = () => {
 
     try {
       await axios.delete(
-        `https://e-commerce-2-vgum.onrender.com/api/v1/customer/c/delete/${userId}`,
+        `/api/v1/customer/c/delete/${userId}`,
         { withCredentials: true }
       );
 

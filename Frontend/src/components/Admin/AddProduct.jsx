@@ -19,7 +19,7 @@ const AddProduct = ({ onSuccess, onClose }) => {
 const fetchCategories = async () => {
   try {
     const res = await axios.get(
-      "https://e-commerce-2-vgum.onrender.com/api/v1/category/getAll",
+      "/api/v1/category/getAll",
       { withCredentials: true }
     );
     setCategories(res.data.data);
@@ -45,7 +45,7 @@ const fetchCategories = async () => {
       formData.append("image", image); // backend makes array
 
       const res = await axios.post(
-        "https://e-commerce-2-vgum.onrender.com/api/v1/product/create",
+        "/api/v1/product/create",
         formData,
         {
           withCredentials: true,
