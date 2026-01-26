@@ -14,7 +14,7 @@ const AdminProducts = () => {
   const fetchProducts = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8000/api/v1/product/getAllProduct",
+        "https://e-commerce-2-vgum.onrender.com/api/v1/product/getAllProduct",
         { withCredentials: true }
       );
       setProducts(res.data.data);
@@ -25,7 +25,7 @@ const AdminProducts = () => {
   const deleteProduct = async (id) => {
     try {
       await axios.delete(
-        `http://localhost:8000/api/v1/product/c/delete/${id}`,
+        `https://e-commerce-2-vgum.onrender.com/api/v1/product/c/delete/${id}`,
         { withCredentials: true }
       );
       setProducts((prev) => prev.filter((p) => p._id !== id));

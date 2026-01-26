@@ -16,7 +16,7 @@ const Register = () => {
   const handleSubmit =async (e) => {
     e.preventDefault();
     try{
-      const res = await axios.post(`http://localhost:8000/api/v1/customer/register`,{name,email,password,mobile,address,username});
+      const res = await axios.post(`https://e-commerce-2-vgum.onrender.com/api/v1/customer/register`,{name,email,password,mobile,address,username});
 
       if(res.data.success){
         navigate("/login");

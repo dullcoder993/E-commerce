@@ -14,7 +14,7 @@ const CartItems = () => {
     const fetchItems = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/api/v1/cartItems/c/getItems/${id}`,
+          `https://e-commerce-2-vgum.onrender.com/api/v1/cartItems/c/getItems/${id}`,
           { withCredentials: true }
         );
         setItems(res.data.data);
@@ -32,7 +32,7 @@ const addItem = async (itemId) => {
     try {
       setUpdatingId(itemId);
       const res = await axios.post(
-        `http://localhost:8000/api/v1/cartItems/c/add/${id}`,
+        `https://e-commerce-2-vgum.onrender.com/api/v1/cartItems/c/add/${id}`,
         {},
         { withCredentials: true }
       );
@@ -49,7 +49,7 @@ const addItem = async (itemId) => {
     try {
       setUpdatingId(itemId);
       const res = await axios.delete(
-        `http://localhost:8000/api/v1/cartItems/c/remove/${id}`,
+        `https://e-commerce-2-vgum.onrender.com/api/v1/cartItems/c/remove/${id}`,
         { withCredentials: true }
       );
 

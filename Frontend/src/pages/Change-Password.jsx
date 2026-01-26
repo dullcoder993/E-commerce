@@ -13,7 +13,7 @@ const Change = () => {
    const handleSubmit =async (e) => {
     e.preventDefault();
     try{
-      const res = await axios.patch(`http://localhost:8000/api/v1/customer/change-password`,{password,confirmPassword},
+      const res = await axios.patch(`https://e-commerce-2-vgum.onrender.com/api/v1/customer/change-password`,{password,confirmPassword},
         { withCredentials: true }
       );
       console.log(res)
