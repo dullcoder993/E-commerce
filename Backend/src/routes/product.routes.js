@@ -21,7 +21,7 @@ router.route("/c/addImage/:id").post(
     addImage)
 router.route("/c/update/:id").patch(verifyJWT,updateDetails)
 router.route("/c/delete/:id").delete(verifyJWT,adminRole,deleteProduct)
-router.route("/getAllProduct").get(verifyJWT,getAllProduct)
+router.route("/getAllProduct").get(getAllProduct)
 router.route("/c/getProducByCategory/:id").get(verifyJWT,getProductByCategory)
 router.route("/c/getProduct/:id").get(verifyJWT,getProductById)
 export default router

@@ -55,7 +55,7 @@ const { setUser,isAuth,setIsAuth } = useContext(AuthContext);
               type="text"
               value={emailId}
               onChange={(e) => setEmailId(e.target.value)}
-              placeholder="   E-mail or mobile"
+              placeholder="   E-mail "
               className="w-full px-4 py-2.5 rounded-md border border-gray-300 
            text-sm text-gray-800 placeholder-gray-400
            focus:outline-none focus:border-orange-500 

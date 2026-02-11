@@ -125,23 +125,25 @@ const ProductDetails = () => {
             />
           </div>
           <div>
-            <h1 className="text-4xl font-semibold mb-2 text-center">{product.name}</h1>
+            <h1 className="text-4xl font-semibold mb-2 text-center py-3">{product.name}</h1>
+            <br/>
             <p className="text-gray-400 text-xl mb-4">{product.discription}</p>
-            <p className="text-orange-400 text-xl mb-4">₹{product.price}</p>
+            <br/>
             <p className="text-orange-400 text-xl mb-4">{product.categoryId.name}</p>
+            <br/>
+            <p className="text-orange-400 text-xl mb-4">₹{product.price}</p>
             <p className="text-slate-300 mb-6">{product.description}</p>
-
-            
           </div>
         </div>
       
       </div>
       <button
   onClick={() => openCartPicker()}
-  className="px-6 py-2 bg-orange-500 rounded hover:bg-orange-600"
+  className="px-6 py-2 bg-orange-500 rounded hover:bg-orange-600 text-xl cursor-pointer"
 >
   Add to Cart
 </button>
+
     </div>
     </Layout>
   );
