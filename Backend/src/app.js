@@ -11,7 +11,8 @@ const app  = express()
 
 app.use(cors({
   origin: ["http://localhost:5173",
-    "https://e-commerce-3-ykpe.onrender.com"
+    "https://e-commerce-3-ykpe.onrender.com",
+    "https://e-commerce-2-vgum.onrender.com/"
   ],
 
   methods: ["GET", "POST", "PUT", "DELETE","PATCH"],
