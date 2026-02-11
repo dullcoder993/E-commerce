@@ -45,7 +45,7 @@ app.use(errorHandler)
 
 
 // serve frontend
-app.use(express.static(path.join(__dirname, "..", "dist")));
+app.use(express.static(path.join(__dirname,"..", "..", "dist")));
 
 // SPA fallback — REGEX ONLY (NO "*")
 app.get(/^(?!\/api\/).*/, (req, res) => {
