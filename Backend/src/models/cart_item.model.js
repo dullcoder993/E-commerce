@@ -5,14 +5,16 @@ const cart_itemSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "cart"
     },
-    product: [{
+    product: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product"
-    }],
+    },
     quantity: {
         type: Number,
         required: true
     }
-},{timestamps: true})
+},{timestamps: true});
+
+cart_itemSchema.index({ cart: 1, product: 1 }, { unique: true });
 
 export const cart_item = mongoose.model("cart_item",cart_itemSchema)
