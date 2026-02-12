@@ -13,7 +13,7 @@ const addItems = asyncHandler(async(req,res)=>{
     }
     
     let cartItem = await cart_item.findOne({
-        cart: Cart.id,
+        product: productId,
     }).populate("product", "name price image")
 
     if(cartItem){
